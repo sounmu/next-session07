@@ -67,11 +67,7 @@ export default function Chat({ character }: { character: CharacterDisplay }) {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          typeof data?.error === "string"
-            ? data.error
-            : "메시지를 보내지 못했어요.",
-        );
+        throw new Error(typeof data?.error === "string" ? data.error : "메시지를 보내지 못했어요.");
       }
 
       if (typeof data?.reply !== "string" || !data.reply.trim()) {
@@ -94,9 +90,7 @@ export default function Chat({ character }: { character: CharacterDisplay }) {
       setInput(content);
 
       setError(
-        cause instanceof Error &&
-          !(cause instanceof TypeError) &&
-          !(cause instanceof SyntaxError)
+        cause instanceof Error && !(cause instanceof TypeError) && !(cause instanceof SyntaxError)
           ? cause.message
           : "연결에 문제가 생겼어요. 잠시 후 다시 보내 주세요.",
       );
@@ -127,7 +121,7 @@ export default function Chat({ character }: { character: CharacterDisplay }) {
         <header className="chat-header">
           {/* 캐릭터 사진 넣는 자리 */}
           <div className="character-photo-slot" aria-label="캐릭터 사진 자리">
-            <Image src="/character.jpg" alt="치이카와" width={64} height={64} />
+            <Image src="/character.jpeg" alt="시키나미 아스카 랑그레이" width={64} height={64} />
           </div>
           <div className="character-info">
             <div className="character-name-row">
@@ -153,14 +147,9 @@ export default function Chat({ character }: { character: CharacterDisplay }) {
             <span>새 대화</span>
           </button>
         </header>
-        <div
-          className="conversation"
-          role="log"
-          aria-label="대화 목록"
-          aria-live="polite"
-        >
+        <div className="conversation" role="log" aria-label="대화 목록" aria-live="polite">
           <p className="conversation-start">
-            <span /> 치이카와를 발견했다! <span />
+            <span /> 아스카다...! <span />
           </p>
           <article className="message assistant">
             <span className="speaker">{character.name}</span>
@@ -170,9 +159,7 @@ export default function Chat({ character }: { character: CharacterDisplay }) {
               fetch의 reader로 받은 조각을 마지막 캐릭터 말풍선에 누적합니다. */}
           {messages.map((message, index) => (
             <article className={`message ${message.role}`} key={index}>
-              <span className="speaker">
-                {message.role === "user" ? "나" : character.name}
-              </span>
+              <span className="speaker">{message.role === "user" ? "나" : character.name}</span>
               <p className="message-bubble">{message.content}</p>
             </article>
           ))}
@@ -207,11 +194,7 @@ export default function Chat({ character }: { character: CharacterDisplay }) {
               value={input}
               onChange={(event) => setInput(event.target.value)}
               onKeyDown={(event) => {
-                if (
-                  event.key === "Enter" &&
-                  !event.shiftKey &&
-                  !event.nativeEvent.isComposing
-                ) {
+                if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) {
                   event.preventDefault();
 
                   if (!isLoading && input.trim()) {
@@ -224,11 +207,7 @@ export default function Chat({ character }: { character: CharacterDisplay }) {
               rows={2}
               disabled={isLoading}
             />
-            <button
-              className="send"
-              type="submit"
-              disabled={isLoading || !input.trim()}
-            >
+            <button className="send" type="submit" disabled={isLoading || !input.trim()}>
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
                   d="M5 12h14m-6-6 6 6-6 6"
@@ -238,9 +217,7 @@ export default function Chat({ character }: { character: CharacterDisplay }) {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="sr-only">
-                {isLoading ? "답변 기다리는 중" : "보내기"}
-              </span>
+              <span className="sr-only">{isLoading ? "답변 기다리는 중" : "보내기"}</span>
             </button>
           </div>
           <div className="input-help">
@@ -251,9 +228,7 @@ export default function Chat({ character }: { character: CharacterDisplay }) {
           </div>
         </form>
       </section>
-      <p className="footer-note">
-        AI 캐릭터의 성격이 실제 세계관과 맞지 않을 수 있어요.
-      </p>
+      <p className="footer-note">AI 캐릭터의 성격이 실제 세계관과 맞지 않을 수 있어요.</p>
     </main>
   );
 }
